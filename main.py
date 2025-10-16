@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
 import uvicorn
+import os
 
 app = FastAPI()
 
@@ -17,7 +18,8 @@ merchant_list: List[pie]= [
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to PieTech"}
+    message = os.getenv("Message", "Environment variable not picked up")
+    return {"message": message}
 
 @app.get("/merchants")
 def get_merchant_list():
